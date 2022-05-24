@@ -28,9 +28,9 @@ android {
     signingConfigs {
         release {
             storeFile file('../idealbroker.keystore')
-            storePassword 'wfkycEzzxjl1'
+            storePassword '******'
             keyAlias = 'android.keystore'
-            keyPassword 'wfkycEzzxjl1'
+            keyPassword '******'
         }
     }
     compileSdkVersion 29
