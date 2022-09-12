@@ -49,11 +49,11 @@ class _MainScreenState extends State<MainScreen> {
             builder: (context) => AlertDialog(
                   title: Text('网络连接超时，是否进入离线模式?'),
                   actions: <Widget>[
-                    FlatButton(
+                    ElevatedButton(
                       child: Text('取消'),
                       onPressed: () => Navigator.pop(context, false),
                     ),
-                    FlatButton(
+                    ElevatedButton(
                         child: Text('确定'),
                         onPressed: () {
                           Navigator.pop(context);
@@ -77,12 +77,12 @@ class _MainScreenState extends State<MainScreen> {
                         builder: (context) => AlertDialog(
                               title: Text('网络连接错误，是否进入离线模式?'),
                               actions: <Widget>[
-                                FlatButton(
+                                ElevatedButton(
                                   child: Text('取消'),
                                   onPressed: () =>
                                       Navigator.pop(context, false),
                                 ),
-                                FlatButton(
+                                ElevatedButton(
                                     child: Text('确定'),
                                     onPressed: () {
                                       Navigator.pop(context);

@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:battery/battery.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screen/flutter_screen.dart';
+// import 'package:flutter_screen/flutter_screen.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:milkyway/Screens/MainScreen.dart';
@@ -71,10 +72,9 @@ class _BarrageScreenState extends State<BarrageScreen> {
   var statusreportstr;
   FToast fToast;
   String version;
-  void initState() async {
+  void initState() {
     super.initState();
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    version = packageInfo.version;
+    getVersion();
     fToast = FToast();
     battery.onBatteryStateChanged.listen((BatteryState state) async {
       var t =
@@ -91,6 +91,13 @@ class _BarrageScreenState extends State<BarrageScreen> {
         channel = IOWebSocketChannel.connect("ws://000.000.000.000");
       });
     }
+  }
+
+  void getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+    });
   }
 
   @override
@@ -176,7 +183,7 @@ class _BarrageScreenState extends State<BarrageScreen> {
                             print('lock');
                             setState(() {
                               screenLock = true;
-                              FlutterScreen.keepOn(true);
+                              // FlutterScreen.keepOn(true);
                             });
                           }),
                     ],
@@ -204,7 +211,7 @@ class _BarrageScreenState extends State<BarrageScreen> {
                             print('lock open');
                             setState(() {
                               screenLock = false;
-                              FlutterScreen.keepOn(false);
+                              // FlutterScreen.keepOn(false);
                             });
                           })
                     ],
@@ -219,7 +226,9 @@ class _BarrageScreenState extends State<BarrageScreen> {
               minHeight: MediaQuery.of(context).size.height * 1.6 <
                       MediaQuery.of(context).size.width
                   ? 0
-                  : screenLock ? 0 : 60,
+                  : screenLock
+                      ? 0
+                      : 60,
               maxHeight: MediaQuery.of(context).size.height * 0.7,
               backdropTapClosesPanel: false,
             ),
@@ -231,8 +240,18 @@ class _BarrageScreenState extends State<BarrageScreen> {
   void dispose() {
     _timer.cancel();
     channel.sink.close();
-    FlutterScreen.resetBrightness();
+    // FlutterScreen.resetBrightness();
+    resetBrightness();
     super.dispose();
+  }
+
+  void resetBrightness() async {
+    try {
+      await ScreenBrightness().resetScreenBrightness();
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Failed to reset brightness';
+    }
   }
 
   bool connected = false;
@@ -333,7 +352,7 @@ class _BarrageScreenState extends State<BarrageScreen> {
                     title: Text("服务器拒绝连接"),
                     content: Text(msg["data"]),
                     actions: <Widget>[
-                      new FlatButton(
+                      new ElevatedButton(
                         child: new Text('确定'),
                         onPressed: () {
                           Navigator.pushAndRemoveUntil(
@@ -376,7 +395,7 @@ class _BarrageScreenState extends State<BarrageScreen> {
             child: AlertDialog(
               title: Text("连接断开，正在重连..."),
               actions: <Widget>[
-                new FlatButton(
+                new ElevatedButton(
                   child: new Text('退出'),
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(

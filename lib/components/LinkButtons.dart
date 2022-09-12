@@ -39,11 +39,11 @@ class _LinkButtonsState extends State<LinkButtons> {
         builder: (context) => AlertDialog(
               title: Text('确定退出房间吗?'),
               actions: <Widget>[
-                FlatButton(
+                ElevatedButton(
                   child: Text('取消'),
                   onPressed: () => Navigator.pop(widget.cxt, false),
                 ),
-                FlatButton(
+                ElevatedButton(
                     child: Text('确定'),
                     onPressed: () {
                       Navigator.pop(widget.cxt);

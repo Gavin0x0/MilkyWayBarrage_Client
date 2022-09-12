@@ -1,7 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screen/flutter_screen.dart';
+// import 'package:flutter_screen/flutter_screen.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ParameterModifier with ChangeNotifier, DiagnosticableTreeMixin {
@@ -69,11 +70,17 @@ class ParameterModifier with ChangeNotifier, DiagnosticableTreeMixin {
     _textColor = hexToColor(data["textcolor"]);
     _backgroundColor = hexToColor(data["bgcolor"]);
     _startTimestamp = data["start_timestamp"];
-    setBrightness(data["brightness"]);
+    // setBrightness(data["brightness"]);
   }
 
-  void setBrightness(int a) {
-    FlutterScreen.setBrightness(a / 100);
+  void setBrightness(int a) async {
+    try {
+      await ScreenBrightness().setScreenBrightness(a.toDouble());
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Failed to set brightness';
+    }
+    // FlutterScreen.setBrightness(a / 100);
   }
 
   void setIndex(int a) {

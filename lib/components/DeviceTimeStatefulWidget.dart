@@ -49,11 +49,10 @@ class _DeviceTimeStatefulWidgetState extends State<DeviceTimeStatefulWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
                   context.read<OffsetHandler>().increment(100);
                 },
-                shape: CircleBorder(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
@@ -62,11 +61,10 @@ class _DeviceTimeStatefulWidgetState extends State<DeviceTimeStatefulWidget> {
                   ),
                 ),
               ),
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
                   context.read<OffsetHandler>().increment(30000);
                 },
-                shape: CircleBorder(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
@@ -90,11 +88,11 @@ class _DeviceTimeStatefulWidgetState extends State<DeviceTimeStatefulWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
                   context.read<OffsetHandler>().increment(-100);
                 },
-                shape: CircleBorder(),
+                // shape: CircleBorder(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
@@ -103,11 +101,11 @@ class _DeviceTimeStatefulWidgetState extends State<DeviceTimeStatefulWidget> {
                   ),
                 ),
               ),
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
                   context.read<OffsetHandler>().increment(-30000);
                 },
-                shape: CircleBorder(),
+                // shape: CircleBorder(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
